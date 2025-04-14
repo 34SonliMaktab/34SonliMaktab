@@ -1,0 +1,1719 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>34-Sonli Maktab</title>
+    <style>
+        /* ASOSIY STILLAR */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: url('https://images.unsplash.com/photo-1588072432836-e10032774350?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* BIRINCHI BO'LIM (KIRISH) */
+        .login-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.85);
+        }
+        
+        .login-title {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            color: #1e3c72;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+        }
+        
+        .login-options {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            width: 100%;
+        }
+        
+        .login-card {
+            width: 300px;
+            padding: 30px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.8) 100%);
+            backdrop-filter: blur(5px);
+        }
+        
+        .login-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .teacher-card {
+            border: 2px solid #3498db;
+        }
+        
+        .parent-card {
+            border: 2px solid #2ecc71;
+        }
+        
+        .student-card {
+            border: 2px solid #e74c3c;
+        }
+        
+        .login-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #1e3c72;
+        }
+        
+        .login-card p {
+            color: #555;
+        }
+        
+        /* IKKINCHI BO'LIM (ASOSIY) */
+        .main-section {
+            display: none;
+            min-height: 100vh;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .welcome-text {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+        
+        .nav-menu {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .nav-item {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: all 0.3s;
+            background-color: rgba(255,255,255,0.1);
+        }
+        
+        .nav-item:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .content-section {
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 10px;
+            margin: 30px 0;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .section-title {
+            color: #1e3c72;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #1e3c72;
+        }
+        
+        /* POSTLAR VA GALEREYA */
+        .post {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .post-title {
+            font-size: 1.3rem;
+            color: #1e3c72;
+            margin-bottom: 10px;
+        }
+        
+        .post-content {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        
+        .post-meta {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 15px;
+        }
+        
+        .reactions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .reaction-btn {
+            padding: 5px 15px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+        
+        .reaction-btn:hover {
+            transform: scale(1.05);
+        }
+        
+        .like-btn {
+            background-color: #2ecc71;
+            color: white;
+        }
+        
+        .dislike-btn {
+            background-color: #e74c3c;
+            color: white;
+        }
+        
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .gallery-item {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+        
+        .gallery-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+        
+        .gallery-caption {
+            padding: 15px;
+            background-color: white;
+        }
+        
+        /* O'QITUVCHI TANLAMLARI */
+        .teacher-options {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .teacher-btn {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            transition: all 0.2s;
+        }
+        
+        .teacher-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        /* DARS JADVALI JADVALI */
+        .timetable {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .timetable th, .timetable td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        .timetable th {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            font-weight: bold;
+        }
+        
+        .timetable tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        .timetable tr:hover {
+            background-color: #f1f1f1;
+        }
+        
+        /* XHJ LOGO */
+        .XHJ-logo {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #000000 0%, #333333 100%);
+            color: red;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: all 0.2s;
+        }
+        
+        .XHJ-logo:hover {
+            transform: scale(1.05);
+        }
+        
+        /* CHIQISH TUGMASI */
+        .logout-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: all 0.2s;
+        }
+        
+        .logout-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        /* MODAL OYNALAR */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1001;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            width: 500px;
+            max-width: 90%;
+            box-shadow: 0 5px 30px rgba(0,0,0,0.3);
+            animation: modalFadeIn 0.3s;
+        }
+        
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .modal-title {
+            color: #1e3c72;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 1.5rem;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: all 0.2s;
+        }
+        
+        .form-input:focus {
+            border-color: #3498db;
+            box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
+            outline: none;
+        }
+        
+        .form-textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.2s;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            color: white;
+        }
+        
+        .btn-danger {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+        }
+        
+        /* SINFLAR SELECTORI */
+        .class-selector {
+            margin-bottom: 20px;
+        }
+        
+        .class-selector select {
+            padding: 8px 15px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-size: 1rem;
+            background-color: white;
+        }
+        
+        /* MEDIA QUERIES */
+        @media (max-width: 768px) {
+            .login-options {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .login-card {
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .nav-menu {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+            
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+            
+            .teacher-options {
+                flex-direction: column;
+            }
+            
+            .timetable {
+                font-size: 0.8rem;
+            }
+            
+            .timetable th, .timetable td {
+                padding: 8px;
+            }
+            
+            .modal-content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- XHJ LOGO -->
+    <div class="XHJ-logo" onclick="showXHJInfo()">XHJ</div>
+    
+    <!-- CHIQISH TUGMASI -->
+    <button class="logout-btn" id="logoutBtn" style="display: none;">Chiqish</button>
+    
+    <!-- BIRINCHI BO'LIM (KIRISH) -->
+    <section class="login-section" id="loginSection">
+        <div class="container">
+            <h1 class="login-title">34-Sonli Maktab</h1>
+            <div class="login-options">
+                <!-- O'QITUVCHI KIRISH -->
+                <div class="login-card teacher-card" onclick="showTeacherLogin()">
+                    <h3>O'qituvchi</h3>
+                    <p>hush kelibsiz</p>
+                </div>
+                
+                <!-- OTA-ONA KIRISH -->
+                <div class="login-card parent-card" onclick="loginAsParent()">
+                    <h3>Ota-Ona</h3>
+                    <p>hush kelibsiz</p>
+                </div>
+                
+                <!-- O'QUVCHI KIRISH -->
+                <div class="login-card student-card" onclick="loginAsStudent()">
+                    <h3>O'quvchi</h3>
+                    <p>hush kelibsiz</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- IKKINCHI BO'LIM (ASOSIY) -->
+    <section class="main-section" id="mainSection">
+        <div class="header">
+            <div class="container">
+                <h2 class="welcome-text">34-Sonli Maktabimizga xush kelibsiz!</h2>
+                <div class="nav-menu">
+                    <a href="#" class="nav-item" onclick="showContent('asosiy')">Asosiy</a>
+                    <a href="#" class="nav-item" onclick="showContent('tashabbus')">5-Tashabbus</a>
+                    <a href="#" class="nav-item" onclick="showContent('oqituvchilar')">O'qituvchilar</a>
+                    <a href="#" class="nav-item" onclick="showContent('dars-jadvali')">Dars Jadvali</a>
+                    <a href="#" class="nav-item" onclick="showContent('galereya')">Galereya</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="container">
+            <!-- ASOSIY KONTENT -->
+            <div class="content-section" id="asosiyContent">
+                <div class="teacher-options" id="asosiyTeacherOptions" style="display: none;">
+                    <button class="teacher-btn" onclick="showAddPostModal()">Yangilik qo'shish</button>
+                </div>
+                <h3 class="section-title">Ohirgi Yangiliklar</h3>
+                <div id="newsContainer">
+                    <!-- Yangiliklar shu yerda ko'rinadi -->
+                </div>
+            </div>
+            
+            <!-- 5-TASHABBUS -->
+            <div class="content-section" id="tashabbusContent" style="display: none;">
+                <div class="teacher-options" id="tashabbusTeacherOptions" style="display: none;">
+                    <button class="teacher-btn" onclick="showAddInitiativeModal()">Tashabbus qo'shish</button>
+                </div>
+                <h3 class="section-title">5-Tashabbus</h3>
+                <div id="initiativesContainer">
+                    <!-- Tashabbuslar shu yerda ko'rinadi -->
+                </div>
+            </div>
+            
+            <!-- O'QITUVCHILAR -->
+            <div class="content-section" id="oqituvchilarContent" style="display: none;">
+                <div class="teacher-options" id="teachersTeacherOptions" style="display: none;">
+                    <button class="teacher-btn" onclick="showAddTeacherModal()">O'qituvchi qo'shish</button>
+                </div>
+                <h3 class="section-title">O'qituvchilar</h3>
+                <div id="teachersContainer">
+                    <!-- O'qituvchilar shu yerda ko'rinadi -->
+                </div>
+            </div>
+            
+            <!-- DARS JADVALI -->
+            <div class="content-section" id="darsJadvaliContent" style="display: none;">
+                <div class="teacher-options" id="timetableTeacherOptions" style="display: none;">
+                    <button class="teacher-btn" onclick="showAddSubjectModal()">Fan qo'shish</button>
+                    <button class="teacher-btn" onclick="showEditTimetableModal()">Jadvalni tahrirlash</button>
+                </div>
+                <h3 class="section-title">Dars Jadvali</h3>
+                <div class="class-selector">
+                    <select id="sinf-selector" onchange="updateTimetable()">
+                        <option value="1">1-sinf</option>
+                        <option value="2">2-sinf</option>
+                        <option value="3">3-sinf</option>
+                        <option value="4">4-sinf</option>
+                        <option value="5">5-sinf</option>
+                        <option value="6">6-sinf</option>
+                        <option value="7">7-sinf</option>
+                        <option value="8">8-sinf</option>
+                        <option value="9">9-sinf</option>
+                        <option value="10">10-sinf</option>
+                        <option value="11">11-sinf</option>
+                    </select>
+                </div>
+                <div id="timetableContainer">
+                    <!-- Dars jadvali shu yerda ko'rinadi -->
+                </div>
+            </div>
+            
+            <!-- GALEREYA -->
+            <div class="content-section" id="galereyaContent" style="display: none;">
+                <div class="teacher-options" id="galleryTeacherOptions" style="display: none;">
+                    <button class="teacher-btn" onclick="showAddGalleryItemModal()">Rasm/Video qo'shish</button>
+                </div>
+                <h3 class="section-title">Galereya</h3>
+                <div id="galleryContainer">
+                    <!-- Galereya shu yerda ko'rinadi -->
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- O'QITUVCHI KIRISH FORMASI -->
+    <div class="modal" id="teacherLoginModal">
+        <div class="modal-content">
+            <h3 class="modal-title">O'qituvchi Kirish</h3>
+            <div class="form-group">
+                <label for="teacherCode" class="form-label">Maxfiy kod</label>
+                <input type="password" class="form-input" id="teacherCode" placeholder="kodni yozing">
+            </div>
+            <div class="form-actions">
+                <button class="btn btn-primary" onclick="checkTeacherCode()">Kirish</button>
+                <button class="btn btn-danger" onclick="hideTeacherLogin()">Bekor qilish</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- YANGILIK QO'SHISH MODALI -->
+    <div class="modal" id="addPostModal">
+        <div class="modal-content">
+            <h3 class="modal-title">Yangilik qo'shish</h3>
+            <div class="form-group">
+                <label for="postTitle" class="form-label">Sarlavha</label>
+                <input type="text" class="form-input" id="postTitle" placeholder="Yangilik sarlavhasi">
+            </div>
+            <div class="form-group">
+                <label for="postContent" class="form-label">Matn</label>
+                <textarea class="form-textarea" id="postContent" placeholder="Yangilik matni"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="postImage" class="form-label">Rasm (ixtiyoriy)</label>
+                <input type="file" class="form-input" id="postImage">
+            </div>
+            <div class="form-actions">
+                <button class="btn btn-primary" onclick="addPost()">Qo'shish</button>
+                <button class="btn btn-danger" onclick="hideAddPostModal()">Bekor qilish</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- TASHABBUS QO'SHISH MODALI -->
+    <div class="modal" id="addInitiativeModal">
+        <div class="modal-content">
+            <h3 class="modal-title">Tashabbus qo'shish</h3>
+            <div class="form-group">
+                <label for="initiativeTitle" class="form-label">Sarlavha</label>
+                <input type="text" class="form-input" id="initiativeTitle" placeholder="Tashabbus sarlavhasi">
+            </div>
+            <div class="form-group">
+                <label for="initiativeContent" class="form-label">Matn</label>
+                <textarea class="form-textarea" id="initiativeContent" placeholder="Tashabbus matni"></textarea>
+            </div>
+            <div class="form-actions">
+                <button class="btn btn-primary" onclick="addInitiative()">Qo'shish</button>
+                <button class="btn btn-danger" onclick="hideAddInitiativeModal()">Bekor qilish</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- O'QITUVCHI QO'SHISH MODALI -->
+    <div class="modal" id="addTeacherModal">
+        <div class="modal-content">
+            <h3 class="modal-title">O'qituvchi qo'shish</h3>
+            <div class="form-group">
+                <label for="teacherName" class="form-label">Ism-sharif</label>
+                <input type="text" class="form-input" id="teacherName" placeholder="O'qituvchi ismi">
+            </div>
+            <div class="form-group">
+                <label for="teacherSubject" class="form-label">Fani</label>
+                <input type="text" class="form-input" id="teacherSubject" placeholder="O'qitadigan fani">
+            </div>
+            <div class="form-group">
+                <label for="teacherExperience" class="form-label">Tajriba</label>
+                <input type="text" class="form-input" id="teacherExperience" placeholder="Ish tajribasi">
+            </div>
+            <div class="form-group">
+                <label for="teacherPhoto" class="form-label">Rasm (ixtiyoriy)</label>
+                <input type="file" class="form-input" id="teacherPhoto">
+            </div>
+            <div class="form-actions">
+                <button class="btn btn-primary" onclick="addTeacher()">Qo'shish</button>
+                <button class="btn btn-danger" onclick="hideAddTeacherModal()">Bekor qilish</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- FAN QO'SHISH MODALI -->
+    <div class="modal" id="addSubjectModal">
+        <div class="modal-content">
+            <h3 class="modal-title">Fan qo'shish</h3>
+            <div class="form-group">
+                <label for="subjectName" class="form-label">Fan nomi</label>
+                <input type="text" class="form-input" id="subjectName" placeholder="Fan nomi">
+            </div>
+            <div class="form-group">
+                <label for="subjectClass" class="form-label">Sinf</label>
+                <select class="form-input" id="subjectClass">
+                    <option value="1">1-sinf</option>
+                    <option value="2">2-sinf</option>
+                    <option value="3">3-sinf</option>
+                    <option value="4">4-sinf</option>
+                    <option value="5">5-sinf</option>
+                    <option value="6">6-sinf</option>
+                    <option value="7">7-sinf</option>
+                    <option value="8">8-sinf</option>
+                    <option value="9">9-sinf</option>
+                    <option value="10">10-sinf</option>
+                    <option value="11">11-sinf</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="subjectTeacher" class="form-label">O'qituvchi</label>
+                <select class="form-input" id="subjectTeacher">
+                    <!-- O'qituvchilar ro'yxati JavaScript bilan to'ldiriladi -->
+                </select>
+            </div>
+            <div class="form-actions">
+                <button class="btn btn-primary" onclick="addSubject()">Qo'shish</button>
+                <button class="btn btn-danger" onclick="hideAddSubjectModal()">Bekor qilish</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- DARS JADVALINI TAXRIRLASH MODALI -->
+    <div class="modal" id="editTimetableModal">
+        <div class="modal-content">
+            <h3 class="modal-title">Dars jadvalini tahrirlash</h3>
+            <div class="form-group">
+                <label for="editClassSelector" class="form-label">Sinf</label>
+                <select class="form-input" id="editClassSelector" onchange="loadClassTimetable()">
+                    <option value="1">1-sinf</option>
+                    <option value="2">2-sinf</option>
+                    <option value="3">3-sinf</option>
+                    <option value="4">4-sinf</option>
+                    <option value="5">5-sinf</option>
+                    <option value="6">6-sinf</option>
+                    <option value="7">7-sinf</option>
+                    <option value="8">8-sinf</option>
+                    <option value="9">9-sinf</option>
+                    <option value="10">10-sinf</option>
+                    <option value="11">11-sinf</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Dars jadvali</label>
+                <div id="timetableEditor">
+                    <!-- Jadval tahrirlovchi shu yerda ko'rinadi -->
+                </div>
+            </div>
+            <div class="form-actions">
+                <button class="btn btn-primary" onclick="saveTimetable()">Saqlash</button>
+                <button class="btn btn-danger" onclick="hideEditTimetableModal()">Bekor qilish</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- GALEREYA QO'SHISH MODALI -->
+    <div class="modal" id="addGalleryItemModal">
+        <div class="modal-content">
+            <h3 class="modal-title">Galereyaga qo'shish</h3>
+            <div class="form-group">
+                <label for="galleryItemType" class="form-label">Media turi</label>
+                <select class="form-input" id="galleryItemType" onchange="toggleGalleryFields()">
+                    <option value="image">Rasm</option>
+                    <option value="video">Video</option>
+                </select>
+            </div>
+            <div class="form-group" id="galleryImageGroup">
+                <label for="galleryImage" class="form-label">Rasm</label>
+                <input type="file" class="form-input" id="galleryImage">
+            </div>
+            <div class="form-group" id="galleryVideoGroup" style="display: none;">
+                <label for="galleryVideo" class="form-label">Video havolasi</label>
+                <input type="text" class="form-input" id="galleryVideo" placeholder="YouTube yoki boshqa video havolasi">
+            </div>
+            <div class="form-group">
+                <label for="galleryTitle" class="form-label">Sarlavha</label>
+                <input type="text" class="form-input" id="galleryTitle" placeholder="Rasm/video sarlavhasi">
+            </div>
+            <div class="form-group">
+                <label for="galleryDescription" class="form-label">Tavsif</label>
+                <textarea class="form-textarea" id="galleryDescription" placeholder="Qisqacha tavsif"></textarea>
+            </div>
+            <div class="form-actions">
+                <button class="btn btn-primary" onclick="addGalleryItem()">Qo'shish</button>
+                <button class="btn btn-danger" onclick="hideAddGalleryItemModal()">Bekor qilish</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // O'ZGARUVCHILAR
+        let currentUser = null;
+        let posts = [];
+        let initiatives = [];
+        let teachers = [];
+        let timetable = {};
+        let galleryItems = [];
+        
+        // DASTLABKI MA'LUMOTLAR
+        function initializeData() {
+            // Yangiliklar
+            posts = [
+                {
+                    id: 1,
+                    title: "Yangi o'quv yili boshlanishi",
+                    content: "1-sentyabr kuni soat 9:00 da tantanali marosim bo'lib o'tadi. Barcha o'quvchilar va ota-onalar taklif etiladi.",
+                    author: "Admin",
+                    date: "2025-08-25 14:30",
+                    likes: 24,
+                    dislikes: 2,
+                    image: null
+                },
+                {
+                    id: 2,
+                    title: "Bilimdon tanlovi",
+                    content: "Har yili o'tkaziladigan Bilimdon tanlovi bu yili 20-oktyabr kuni bo'lib o'tadi.",
+                    author: "Admin",
+                    date: "2025-08-20 10:15",
+                    likes: 15,
+                    dislikes: 1,
+                    image: null
+                }
+            ];
+            
+            // Tashabbuslar
+            initiatives = [
+                {
+                    id: 1,
+                    title: "Toza maktab loyihasi",
+                    content: "Har oyning oxirgi jumasida umummaktab subotniki o'tkaziladi. Barcha o'quvchilar, o'qituvchilar va ota-onalar ishtirok etishlari mumkin.",
+                    author: "Direktor",
+                    date: "2025-09-05 09:00",
+                    likes: 56,
+                    dislikes: 3
+                },
+                {
+                    id: 2,
+                    title: "Kitob do'stlari klubi",
+                    content: "Har hafta shanba kuni soat 10:00 da maktab kutubxonasida yosh kitobxonlar uchun uchrashuvlar o'tkaziladi.",
+                    author: "Kutubxonachi",
+                    date: "2025-09-10 14:30",
+                    likes: 32,
+                    dislikes: 0
+                }
+            ];
+            
+            // O'qituvchilar
+            teachers = [
+                {
+                    id: 1,
+                    name: "Rahimova Dilfuza Baxodirovna",
+                    subject: "Ona tili va adabiyot",
+                    experience: "15 yillik tajriba",
+                    photo: null
+                },
+                {
+                    id: 2,
+                    name: "Yusupov Farxod Abdujalilovich",
+                    subject: "Matematika",
+                    experience: "10 yillik tajriba",
+                    photo: null
+                },
+                {
+                    id: 3,
+                    name: "Nazarova Gulnora Xamidovna",
+                    subject: "Fizika",
+                    experience: "12 yillik tajriba",
+                    photo: null
+                },
+                {
+                    id: 4,
+                    name: "Qodirov Jamshid Ismoilovich",
+                    subject: "Kimyo",
+                    experience: "8 yillik tajriba",
+                    photo: null
+                },
+                {
+                    id: 5,
+                    name: "Toshmatova Zulfiya Karimovna",
+                    subject: "Biologiya",
+                    experience: "18 yillik tajriba",
+                    photo: null
+                }
+            ];
+            
+            // Dars jadvali (1-11 sinflar uchun to'liq jadval)
+            timetable = {
+                "1": [
+                    { subject: "Ona tili", teacher: "Rahimova D.B." },
+                    { subject: "Matematika", teacher: "Yusupov F.A." },
+                    { subject: "Tabiiy fan", teacher: "Toshmatova Z.K." },
+                    { subject: "Tarix", teacher: "Nazarova G.X." },
+                    { subject: "Jismoniy tarbiya", teacher: "Qodirov J.I." },
+                    { subject: "Chizmachilik", teacher: "Rahimova D.B." },
+                    { subject: "Musiqa", teacher: "Yusupov F.A." },
+                    { subject: "Texnologiya", teacher: "Toshmatova Z.K." }
+                ],
+                "2": [
+                    { subject: "Ona tili", teacher: "Rahimova D.B." },
+                    { subject: "Matematika", teacher: "Yusupov F.A." },
+                    { subject: "Tabiiy fan", teacher: "Toshmatova Z.K." },
+                    { subject: "Tarix", teacher: "Nazarova G.X." },
+                    { subject: "Jismoniy tarbiya", teacher: "Qodirov J.I." },
+                    { subject: "Chizmachilik", teacher: "Rahimova D.B." },
+                    { subject: "Musiqa", teacher: "Yusupov F.A." },
+                    { subject: "Texnologiya", teacher: "Toshmatova Z.K." }
+                ],
+                "3": [
+                    { subject: "Ona tili", teacher: "Rahimova D.B." },
+                    { subject: "Matematika", teacher: "Yusupov F.A." },
+                    { subject: "Tabiiy fan", teacher: "Toshmatova Z.K." },
+                    { subject: "Tarix", teacher: "Nazarova G.X." },
+                    { subject: "Jismoniy tarbiya", teacher: "Qodirov J.I." },
+                    { subject: "Chizmachilik", teacher: "Rahimova D.B." },
+                    { subject: "Musiqa", teacher: "Yusupov F.A." },
+                    { subject: "Texnologiya", teacher: "Toshmatova Z.K." }
+                ],
+                "4": [
+                    { subject: "Ona tili", teacher: "Rahimova D.B." },
+                    { subject: "Matematika", teacher: "Yusupov F.A." },
+                    { subject: "Tabiiy fan", teacher: "Toshmatova Z.K." },
+                    { subject: "Tarix", teacher: "Nazarova G.X." },
+                    { subject: "Jismoniy tarbiya", teacher: "Qodirov J.I." },
+                    { subject: "Chizmachilik", teacher: "Rahimova D.B." },
+                    { subject: "Musiqa", teacher: "Yusupov F.A." },
+                    { subject: "Texnologiya", teacher: "Toshmatova Z.K." }
+                ],
+                "5": [
+                    { subject: "Ona tili", teacher: "Rahimova D.B." },
+                    { subject: "Matematika", teacher: "Yusupov F.A." },
+                    { subject: "Tabiiy fan", teacher: "Toshmatova Z.K." },
+                    { subject: "Tarix", teacher: "Nazarova G.X." },
+                    { subject: "Jismoniy tarbiya", teacher: "Qodirov J.I." },
+                    { subject: "Chizmachilik", teacher: "Rahimova D.B." },
+                    { subject: "Musiqa", teacher: "Yusupov F.A." },
+                    { subject: "Texnologiya", teacher: "Toshmatova Z.K." }
+                ],
+                "6": [
+                    { subject: "Ona tili", teacher: "Rahimova D.B." },
+                    { subject: "Matematika", teacher: "Yusupov F.A." },
+                    { subject: "Fizika", teacher: "Nazarova G.X." },
+                    { subject: "Biologiya", teacher: "Toshmatova Z.K." },
+                    { subject: "Kimyo", teacher: "Qodirov J.I." },
+                    { subject: "Tarix", teacher: "Rahimova D.B." },
+                    { subject: "Jismoniy tarbiya", teacher: "Yusupov F.A." },
+                    { subject: "Informatika", teacher: "Nazarova G.X." },
+                    { subject: "Xorijiy til", teacher: "Toshmatova Z.K." }
+                ],
+                "7": [
+                    { subject: "Ona tili", teacher: "Rahimova D.B." },
+                    { subject: "Matematika", teacher: "Yusupov F.A." },
+                    { subject: "Fizika", teacher: "Nazarova G.X." },
+                    { subject: "Biologiya", teacher: "Toshmatova Z.K." },
+                    { subject: "Kimyo", teacher: "Qodirov J.I." },
+                    { subject: "Tarix", teacher: "Rahimova D.B." },
+                    { subject: "Jismoniy tarbiya", teacher: "Yusupov F.A." },
+                    { subject: "Informatika", teacher: "Nazarova G.X." },
+                    { subject: "Xorijiy til", teacher: "Toshmatova Z.K." }
+                ],
+                "8": [
+                    { subject: "Ona tili", teacher: "Rahimova D.B." },
+                    { subject: "Matematika", teacher: "Yusupov F.A." },
+                    { subject: "Fizika", teacher: "Nazarova G.X." },
+                    { subject: "Biologiya", teacher: "Toshmatova Z.K." },
+                    { subject: "Kimyo", teacher: "Qodirov J.I." },
+                    { subject: "Tarix", teacher: "Rahimova D.B." },
+                    { subject: "Jismoniy tarbiya", teacher: "Yusupov F.A." },
+                    { subject: "Informatika", teacher: "Nazarova G.X." },
+                    { subject: "Xorijiy til", teacher: "Toshmatova Z.K." }
+                ],
+                "9": [
+                    { subject: "Ona tili", teacher: "Rahimova D.B." },
+                    { subject: "Matematika", teacher: "Yusupov F.A." },
+                    { subject: "Fizika", teacher: "Nazarova G.X." },
+                    { subject: "Biologiya", teacher: "Toshmatova Z.K." },
+                    { subject: "Kimyo", teacher: "Qodirov J.I." },
+                    { subject: "Tarix", teacher: "Rahimova D.B." },
+                    { subject: "Jismoniy tarbiya", teacher: "Yusupov F.A." },
+                    { subject: "Informatika", teacher: "Nazarova G.X." },
+                    { subject: "Xorijiy til", teacher: "Toshmatova Z.K." },
+                    { subject: "Huquq asoslari", teacher: "Qodirov J.I." }
+                ],
+                "10": [
+                    { subject: "Ona tili", teacher: "Rahimova D.B." },
+                    { subject: "Matematika", teacher: "Yusupov F.A." },
+                    { subject: "Fizika", teacher: "Nazarova G.X." },
+                    { subject: "Biologiya", teacher: "Toshmatova Z.K." },
+                    { subject: "Kimyo", teacher: "Qodirov J.I." },
+                    { subject: "Tarix", teacher: "Rahimova D.B." },
+                    { subject: "Jismoniy tarbiya", teacher: "Yusupov F.A." },
+                    { subject: "Informatika", teacher: "Nazarova G.X." },
+                    { subject: "Xorijiy til", teacher: "Toshmatova Z.K." },
+                    { subject: "Huquq asoslari", teacher: "Qodirov J.I." },
+                    { subject: "Iqtisodiyot", teacher: "Rahimova D.B." }
+                ],
+                "11": [
+                    { subject: "Ona tili", teacher: "Rahimova D.B." },
+                    { subject: "Matematika", teacher: "Yusupov F.A." },
+                    { subject: "Fizika", teacher: "Nazarova G.X." },
+                    { subject: "Biologiya", teacher: "Toshmatova Z.K." },
+                    { subject: "Kimyo", teacher: "Qodirov J.I." },
+                    { subject: "Tarix", teacher: "Rahimova D.B." },
+                    { subject: "Jismoniy tarbiya", teacher: "Yusupov F.A." },
+                    { subject: "Informatika", teacher: "Nazarova G.X." },
+                    { subject: "Xorijiy til", teacher: "Toshmatova Z.K." },
+                    { subject: "Huquq asoslari", teacher: "Qodirov J.I." },
+                    { subject: "Iqtisodiyot", teacher: "Rahimova D.B." }
+                ]
+            };
+            
+            // Galereya
+            galleryItems = [
+                {
+                    id: 1,
+                    type: "image",
+                    title: "Yangi yil bayrami",
+                    description: "2024-yil dekabr oyida o'tkazilgan yangi yil bayrami",
+                    url: "https://images.unsplash.com/photo-1513151233558-d860c5398176?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80",
+                    likes: 45,
+                    dislikes: 1
+                },
+                {
+                    id: 2,
+                    type: "image",
+                    title: "Voleybol turniri",
+                    description: "2025-yil fevral oyida o'tkazilgan sport musobaqasi",
+                    url: "https://images.unsplash.com/photo-1547347298-4074fc3086f0?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80",
+                    likes: 32,
+                    dislikes: 0
+                },
+                {
+                    id: 3,
+                    type: "image",
+                    title: "Maktab kutubxonasi",
+                    description: "Yangi kitoblar bilan boyitilgan kutubxona",
+                    url: "https://images.unsplash.com/photo-1589998059171-988d887df646?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80",
+                    likes: 28,
+                    dislikes: 2
+                }
+            ];
+        }
+        
+        // KIRISH FUNKSIYALARI
+        function showTeacherLogin() {
+            document.getElementById('teacherLoginModal').style.display = 'flex';
+        }
+        
+        function hideTeacherLogin() {
+            document.getElementById('teacherLoginModal').style.display = 'none';
+            document.getElementById('teacherCode').value = '';
+        }
+        
+        function checkTeacherCode() {
+            const code = document.getElementById('teacherCode').value;
+            if (code === '@kodmukamal1') {
+                currentUser = 'teacher';
+                showMainInterface();
+                hideTeacherLogin();
+            } else {
+                alert('Noto\'g\'ri kod! Iltimos, qayta urinib ko\'ring.');
+            }
+        }
+        
+        function loginAsParent() {
+            currentUser = 'parent';
+            showMainInterface();
+        }
+        
+        function loginAsStudent() {
+            currentUser = 'student';
+            showMainInterface();
+        }
+        
+        function logout() {
+            currentUser = null;
+            document.getElementById('loginSection').style.display = 'flex';
+            document.getElementById('mainSection').style.display = 'none';
+            document.getElementById('logoutBtn').style.display = 'none';
+        }
+        
+        // ASOSIY INTERFEYSNI KO'RSATISH
+        function showMainInterface() {
+            document.getElementById('loginSection').style.display = 'none';
+            document.getElementById('mainSection').style.display = 'block';
+            document.getElementById('logoutBtn').style.display = 'block';
+            
+            // O'qituvchi bo'lsa, tahrirlash tugmalarini ko'rsatish
+            if (currentUser === 'teacher') {
+                document.getElementById('asosiyTeacherOptions').style.display = 'flex';
+                document.getElementById('tashabbusTeacherOptions').style.display = 'flex';
+                document.getElementById('teachersTeacherOptions').style.display = 'flex';
+                document.getElementById('timetableTeacherOptions').style.display = 'flex';
+                document.getElementById('galleryTeacherOptions').style.display = 'flex';
+            } else {
+                document.getElementById('asosiyTeacherOptions').style.display = 'none';
+                document.getElementById('tashabbusTeacherOptions').style.display = 'none';
+                document.getElementById('teachersTeacherOptions').style.display = 'none';
+                document.getElementById('timetableTeacherOptions').style.display = 'none';
+                document.getElementById('galleryTeacherOptions').style.display = 'none';
+            }
+            
+            showContent('asosiy');
+            renderAllData();
+        }
+        
+        // KONTENTNI KO'RSATISH
+        function showContent(contentId) {
+            // Barcha kontentlarni yashirish
+            document.getElementById('asosiyContent').style.display = 'none';
+            document.getElementById('tashabbusContent').style.display = 'none';
+            document.getElementById('oqituvchilarContent').style.display = 'none';
+            document.getElementById('darsJadvaliContent').style.display = 'none';
+            document.getElementById('galereyaContent').style.display = 'none';
+            
+            // Tanlangan kontentni ko'rsatish
+            document.getElementById(contentId + 'Content').style.display = 'block';
+            
+            // Agar dars jadvali bo'lsa, sinf selectorini yangilash
+            if (contentId === 'dars-jadvali') {
+                updateTimetable();
+            }
+        }
+        
+        // MA'LUMOTLARNI CHIZISH
+        function renderAllData() {
+            renderPosts();
+            renderInitiatives();
+            renderTeachers();
+            renderTimetable();
+            renderGallery();
+        }
+        
+        function renderPosts() {
+            let html = '';
+            posts.forEach(post => {
+                html += `
+                    <div class="post">
+                        <h4 class="post-title">${post.title}</h4>
+                        <div class="post-meta">${post.date} | ${post.author}</div>
+                        <div class="post-content">
+                            <p>${post.content}</p>
+                            ${post.image ? `<img src="${post.image}" style="max-width: 100%; margin-top: 10px; border-radius: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">` : ''}
+                        </div>
+                        <div class="reactions">
+                            <button class="reaction-btn like-btn" onclick="likeItem('post', ${post.id})">👍 Yoqdi (${post.likes})</button>
+                            <button class="reaction-btn dislike-btn" onclick="dislikeItem('post', ${post.id})">👎 Yoqmadi (${post.dislikes})</button>
+                        </div>
+                        ${currentUser === 'teacher' ? `
+                        <div style="margin-top: 10px;">
+                            <button class="teacher-btn" style="background-color: #e74c3c;" onclick="removePost(${post.id})">O'chirish</button>
+                        </div>
+                        ` : ''}
+                    </div>
+                `;
+            });
+            document.getElementById('newsContainer').innerHTML = html || '<p>Hozircha yangiliklar mavjud emas</p>';
+        }
+        
+        function renderInitiatives() {
+            let html = '';
+            initiatives.forEach(initiative => {
+                html += `
+                    <div class="post">
+                        <h4 class="post-title">${initiative.title}</h4>
+                        <div class="post-meta">${initiative.date} | ${initiative.author}</div>
+                        <div class="post-content">
+                            <p>${initiative.content}</p>
+                        </div>
+                        <div class="reactions">
+                            <button class="reaction-btn like-btn" onclick="likeItem('initiative', ${initiative.id})">👍 Yoqdi (${initiative.likes})</button>
+                            <button class="reaction-btn dislike-btn" onclick="dislikeItem('initiative', ${initiative.id})">👎 Yoqmadi (${initiative.dislikes})</button>
+                        </div>
+                        ${currentUser === 'teacher' ? `
+                        <div style="margin-top: 10px;">
+                            <button class="teacher-btn" style="background-color: #e74c3c;" onclick="removeInitiative(${initiative.id})">O'chirish</button>
+                        </div>
+                        ` : ''}
+                    </div>
+                `;
+            });
+            document.getElementById('initiativesContainer').innerHTML = html || '<p>Hozircha tashabbuslar mavjud emas</p>';
+        }
+        
+        function renderTeachers() {
+            let html = '';
+            teachers.forEach(teacher => {
+                html += `
+                    <div class="post">
+                        <h4 class="post-title">${teacher.name}</h4>
+                        <div class="post-meta">${teacher.subject} | ${teacher.experience}</div>
+                        <div class="post-content">
+                            ${teacher.photo ? `<img src="${teacher.photo}" style="max-width: 200px; margin-bottom: 10px; border-radius: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">` : ''}
+                            ${currentUser === 'teacher' ? `
+                            <div style="margin-top: 10px;">
+                                <button class="teacher-btn" style="background-color: #e74c3c;" onclick="removeTeacher(${teacher.id})">O'chirish</button>
+                            </div>
+                            ` : ''}
+                        </div>
+                    </div>
+                `;
+            });
+            document.getElementById('teachersContainer').innerHTML = html || '<p>Hozircha o\'qituvchilar ro\'yxati mavjud emas</p>';
+        }
+        
+        function renderTimetable() {
+            const sinf = document.getElementById('sinf-selector').value;
+            let html = '';
+            
+            if (timetable[sinf] && timetable[sinf].length > 0) {
+                html = `
+                    <table class="timetable">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Fan nomi</th>
+                                <th>O'qituvchi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                `;
+                
+                timetable[sinf].forEach((item, index) => {
+                    html += `
+                        <tr>
+                            <td>${index + 1}</td>
+                            <td>${item.subject}</td>
+                            <td>${item.teacher}</td>
+                        </tr>
+                    `;
+                });
+                
+                html += `
+                        </tbody>
+                    </table>
+                `;
+            } else {
+                html = '<p>Ushbu sinf uchun hozircha dars jadvali mavjud emas</p>';
+            }
+            
+            document.getElementById('timetableContainer').innerHTML = html;
+        }
+        
+        function renderGallery() {
+            let html = '<div class="gallery">';
+            
+            galleryItems.forEach(item => {
+                if (item.type === 'image') {
+                    html += `
+                        <div class="gallery-item">
+                            <img src="${item.url}" class="gallery-img">
+                            <div class="gallery-caption">
+                                <h4>${item.title}</h4>
+                                <p>${item.description}</p>
+                                <div class="reactions">
+                                    <button class="reaction-btn like-btn" onclick="likeItem('gallery', ${item.id})">👍 Yoqdi (${item.likes})</button>
+                                    <button class="reaction-btn dislike-btn" onclick="dislikeItem('gallery', ${item.id})">👎 Yoqmadi (${item.dislikes})</button>
+                                </div>
+                                ${currentUser === 'teacher' ? `
+                                <div style="margin-top: 10px;">
+                                    <button class="teacher-btn" style="background-color: #e74c3c;" onclick="removeGalleryItem(${item.id})">O'chirish</button>
+                                </div>
+                                ` : ''}
+                            </div>
+                        </div>
+                    `;
+                } else if (item.type === 'video') {
+                    html += `
+                        <div class="gallery-item">
+                            <iframe width="100%" height="180" src="${item.url}" frameborder="0" allowfullscreen></iframe>
+                            <div class="gallery-caption">
+                                <h4>${item.title}</h4>
+                                <p>${item.description}</p>
+                                <div class="reactions">
+                                    <button class="reaction-btn like-btn" onclick="likeItem('gallery', ${item.id})">👍 Yoqdi (${item.likes})</button>
+                                    <button class="reaction-btn dislike-btn" onclick="dislikeItem('gallery', ${item.id})">👎 Yoqmadi (${item.dislikes})</button>
+                                </div>
+                                ${currentUser === 'teacher' ? `
+                                <div style="margin-top: 10px;">
+                                    <button class="teacher-btn" style="background-color: #e74c3c;" onclick="removeGalleryItem(${item.id})">O'chirish</button>
+                                </div>
+                                ` : ''}
+                            </div>
+                        </div>
+                    `;
+                }
+            });
+            
+            html += '</div>';
+            document.getElementById('galleryContainer').innerHTML = html || '<p>Hozircha galereyada materiallar mavjud emas</p>';
+        }
+        
+        // MODAL OYNALAR
+        function showAddPostModal() {
+            document.getElementById('addPostModal').style.display = 'flex';
+            document.getElementById('postTitle').value = '';
+            document.getElementById('postContent').value = '';
+            document.getElementById('postImage').value = '';
+        }
+        
+        function hideAddPostModal() {
+            document.getElementById('addPostModal').style.display = 'none';
+        }
+        
+        function showAddInitiativeModal() {
+            document.getElementById('addInitiativeModal').style.display = 'flex';
+            document.getElementById('initiativeTitle').value = '';
+            document.getElementById('initiativeContent').value = '';
+        }
+        
+        function hideAddInitiativeModal() {
+            document.getElementById('addInitiativeModal').style.display = 'none';
+        }
+        
+        function showAddTeacherModal() {
+            document.getElementById('addTeacherModal').style.display = 'flex';
+            document.getElementById('teacherName').value = '';
+            document.getElementById('teacherSubject').value = '';
+            document.getElementById('teacherExperience').value = '';
+            document.getElementById('teacherPhoto').value = '';
+        }
+        
+        function hideAddTeacherModal() {
+            document.getElementById('addTeacherModal').style.display = 'none';
+        }
+        
+        function showAddSubjectModal() {
+            document.getElementById('addSubjectModal').style.display = 'flex';
+            document.getElementById('subjectName').value = '';
+            
+            // O'qituvchilar ro'yxatini to'ldirish
+            const teacherSelect = document.getElementById('subjectTeacher');
+            teacherSelect.innerHTML = '';
+            teachers.forEach(teacher => {
+                const option = document.createElement('option');
+                option.value = teacher.id;
+                option.textContent = `${teacher.name} (${teacher.subject})`;
+                teacherSelect.appendChild(option);
+            });
+        }
+        
+        function hideAddSubjectModal() {
+            document.getElementById('addSubjectModal').style.display = 'none';
+        }
+        
+        function showEditTimetableModal() {
+            document.getElementById('editTimetableModal').style.display = 'flex';
+            loadClassTimetable();
+        }
+        
+        function hideEditTimetableModal() {
+            document.getElementById('editTimetableModal').style.display = 'none';
+        }
+        
+        function loadClassTimetable() {
+            const sinf = document.getElementById('editClassSelector').value;
+            let html = '';
+            
+            if (timetable[sinf] && timetable[sinf].length > 0) {
+                timetable[sinf].forEach((item, index) => {
+                    html += `
+                        <div class="form-group">
+                            <label for="subject_${index}" class="form-label">${index + 1}-fan</label>
+                            <input type="text" class="form-input" id="subject_${index}" value="${item.subject}" placeholder="Fan nomi">
+                        </div>
+                        <div class="form-group">
+                            <label for="teacher_${index}" class="form-label">${index + 1}-fan o'qituvchisi</label>
+                            <select class="form-input" id="teacher_${index}">
+                                ${teachers.map(teacher => 
+                                    `<option value="${teacher.id}" ${item.teacher.includes(teacher.name) ? 'selected' : ''}>
+                                        ${teacher.name} (${teacher.subject})
+                                    </option>`
+                                ).join('')}
+                            </select>
+                        </div>
+                    `;
+                });
+            }
+            
+            // Yangi fan qo'shish uchun bo'sh maydon
+            html += `
+                <div class="form-group">
+                    <label for="new_subject" class="form-label">Yangi fan nomi</label>
+                    <input type="text" class="form-input" id="new_subject" placeholder="Yangi fan nomi">
+                </div>
+                <div class="form-group">
+                    <label for="new_teacher" class="form-label">Yangi fan o'qituvchisi</label>
+                    <select class="form-input" id="new_teacher">
+                        ${teachers.map(teacher => 
+                            `<option value="${teacher.id}">
+                                ${teacher.name} (${teacher.subject})
+                            </option>`
+                        ).join('')}
+                    </select>
+                </div>
+            `;
+            
+            document.getElementById('timetableEditor').innerHTML = html;
+        }
+        
+        function showAddGalleryItemModal() {
+            document.getElementById('addGalleryItemModal').style.display = 'flex';
+            document.getElementById('galleryItemType').value = 'image';
+            document.getElementById('galleryImage').value = '';
+            document.getElementById('galleryVideo').value = '';
+            document.getElementById('galleryTitle').value = '';
+            document.getElementById('galleryDescription').value = '';
+            toggleGalleryFields();
+        }
+        
+        function hideAddGalleryItemModal() {
+            document.getElementById('addGalleryItemModal').style.display = 'none';
+        }
+        
+        function toggleGalleryFields() {
+            const type = document.getElementById('galleryItemType').value;
+            if (type === 'image') {
+                document.getElementById('galleryImageGroup').style.display = 'block';
+                document.getElementById('galleryVideoGroup').style.display = 'none';
+            } else {
+                document.getElementById('galleryImageGroup').style.display = 'none';
+                document.getElementById('galleryVideoGroup').style.display = 'block';
+            }
+        }
+        
+        // MA'LUMOT QO'SHISH FUNKSIYALARI
+        function addPost() {
+            const title = document.getElementById('postTitle').value;
+            const content = document.getElementById('postContent').value;
+            const imageFile = document.getElementById('postImage').files[0];
+            
+            if (!title || !content) {
+                alert('Sarlavha va matnni kiriting!');
+                return;
+            }
+            
+            let imageUrl = null;
+            if (imageFile) {
+                // Haqiqiy loyihada bu yerda rasm serverga yuklanadi
+                imageUrl = URL.createObjectURL(imageFile);
+            }
+            
+            const newPost = {
+                id: Date.now(),
+                title,
+                content,
+                author: "Siz",
+                date: new Date().toLocaleDateString(),
+                likes: 0,
+                dislikes: 0,
+                image: imageUrl
+            };
+            
+            posts.unshift(newPost);
+            renderPosts();
+            hideAddPostModal();
+        }
+        
+        function addInitiative() {
+            const title = document.getElementById('initiativeTitle').value;
+            const content = document.getElementById('initiativeContent').value;
+            
+            if (!title || !content) {
+                alert('Sarlavha va matnni kiriting!');
+                return;
+            }
+            
+            const newInitiative = {
+                id: Date.now(),
+                title,
+                content,
+                author: "Siz",
+                date: new Date().toLocaleDateString(),
+                likes: 0,
+                dislikes: 0
+            };
+            
+            initiatives.unshift(newInitiative);
+            renderInitiatives();
+            hideAddInitiativeModal();
+        }
+        
+        function addTeacher() {
+            const name = document.getElementById('teacherName').value;
+            const subject = document.getElementById('teacherSubject').value;
+            const experience = document.getElementById('teacherExperience').value;
+            const photoFile = document.getElementById('teacherPhoto').files[0];
+            
+            if (!name || !subject || !experience) {
+                alert('Barcha maydonlarni to\'ldiring!');
+                return;
+            }
+            
+            let photoUrl = null;
+            if (photoFile) {
+                // Haqiqiy loyihada bu yerda rasm serverga yuklanadi
+                photoUrl = URL.createObjectURL(photoFile);
+            }
+            
+            const newTeacher = {
+                id: Date.now(),
+                name,
+                subject,
+                experience,
+                photo: photoUrl
+            };
+            
+            teachers.push(newTeacher);
+            renderTeachers();
+            hideAddTeacherModal();
+        }
+        
+        function addSubject() {
+            const name = document.getElementById('subjectName').value;
+            const sinf = document.getElementById('subjectClass').value;
+            const teacherId = document.getElementById('subjectTeacher').value;
+            
+            if (!name) {
+                alert('Fan nomini kiriting!');
+                return;
+            }
+            
+            const teacher = teachers.find(t => t.id == teacherId);
+            if (!teacher) {
+                alert('O\'qituvchi tanlang!');
+                return;
+            }
+            
+            if (!timetable[sinf]) {
+                timetable[sinf] = [];
+            }
+            
+            timetable[sinf].push({
+                subject: name,
+                teacher: teacher.name.split(' ')[0] + ' ' + teacher.name.split(' ')[1].charAt(0) + '.'
+            });
+            
+            renderTimetable();
+            hideAddSubjectModal();
+        }
+        
+        function saveTimetable() {
+            const sinf = document.getElementById('editClassSelector').value;
+            const newSubjects = [];
+            
+            // Mavjud fanlarni yangilash
+            if (timetable[sinf]) {
+                for (let i = 0; i < timetable[sinf].length; i++) {
+                    const subject = document.getElementById(`subject_${i}`).value;
+                    const teacherId = document.getElementById(`teacher_${i}`).value;
+                    const teacher = teachers.find(t => t.id == teacherId);
+                    
+                    if (subject && teacher) {
+                        newSubjects.push({
+                            subject: subject,
+                            teacher: teacher.name.split(' ')[0] + ' ' + teacher.name.split(' ')[1].charAt(0) + '.'
+                        });
+                    }
+                }
+            }
+            
+            // Yangi fan qo'shish
+            const newSubject = document.getElementById('new_subject').value;
+            const newTeacherId = document.getElementById('new_teacher').value;
+            const newTeacher = teachers.find(t => t.id == newTeacherId);
+            
+            if (newSubject && newTeacher) {
+                newSubjects.push({
+                    subject: newSubject,
+                    teacher: newTeacher.name.split(' ')[0] + ' ' + newTeacher.name.split(' ')[1].charAt(0) + '.'
+                });
+            }
+            
+            timetable[sinf] = newSubjects;
+            renderTimetable();
+            hideEditTimetableModal();
+        }
+        
+        function addGalleryItem() {
+            const type = document.getElementById('galleryItemType').value;
+            const title = document.getElementById('galleryTitle').value;
+            const description = document.getElementById('galleryDescription').value;
+            
+            if (!title) {
+                alert('Sarlavhani kiriting!');
+                return;
+            }
+            
+            let url = '';
+            if (type === 'image') {
+                const imageFile = document.getElementById('galleryImage').files[0];
+                if (!imageFile) {
+                    alert('Rasm tanlang!');
+                    return;
+                }
+                // Haqiqiy loyihada bu yerda rasm serverga yuklanadi
+                url = URL.createObjectURL(imageFile);
+            } else {
+                url = document.getElementById('galleryVideo').value;
+                if (!url) {
+                    alert('Video havolasini kiriting!');
+                    return;
+                }
+            }
+            
+            const newItem = {
+                id: Date.now(),
+                type,
+                title,
+                description,
+                url,
+                likes: 0,
+                dislikes: 0
+            };
+            
+            galleryItems.unshift(newItem);
+            renderGallery();
+            hideAddGalleryItemModal();
+        }
+        
+        // MA'LUMOT O'CHIRISH FUNKSIYALARI
+        function removePost(id) {
+            if (confirm('Bu postni o\'chirishni istaysizmi?')) {
+                posts = posts.filter(post => post.id !== id);
+                renderPosts();
+            }
+        }
+        
+        function removeInitiative(id) {
+            if (confirm('Bu tashabbusni o\'chirishni istaysizmi?')) {
+                initiatives = initiatives.filter(initiative => initiative.id !== id);
+                renderInitiatives();
+            }
+        }
+        
+        function removeTeacher(id) {
+            if (confirm('Bu o\'qituvchini ro\'yxatdan o\'chirishni istaysizmi?')) {
+                teachers = teachers.filter(teacher => teacher.id !== id);
+                renderTeachers();
+            }
+        }
+        
+        function removeGalleryItem(id) {
+            if (confirm('Bu elementni galereyadan o\'chirishni istaysizmi?')) {
+                galleryItems = galleryItems.filter(item => item.id !== id);
+                renderGallery();
+            }
+        }
+        
+        // REAKSIYALAR
+        function likeItem(type, id) {
+            let item;
+            
+            switch (type) {
+                case 'post':
+                    item = posts.find(post => post.id === id);
+                    break;
+                case 'initiative':
+                    item = initiatives.find(initiative => initiative.id === id);
+                    break;
+                case 'gallery':
+                    item = galleryItems.find(item => item.id === id);
+                    break;
+            }
+            
+            if (item) {
+                item.likes++;
+                renderAllData();
+            }
+        }
+        
+        function dislikeItem(type, id) {
+            let item;
+            
+            switch (type) {
+                case 'post':
+                    item = posts.find(post => post.id === id);
+                    break;
+                case 'initiative':
+                    item = initiatives.find(initiative => initiative.id === id);
+                    break;
+                case 'gallery':
+                    item = galleryItems.find(item => item.id === id);
+                    break;
+            }
+            
+            if (item) {
+                item.dislikes++;
+                renderAllData();
+            }
+        }
+        
+        // DARS JADVALINI YANGILASH
+        function updateTimetable() {
+            renderTimetable();
+        }
+        
+        // XHJ INFO
+        function showXHJInfo() {
+            alert("9-A Sinf O'quvchisi Xalillayev Husniddinivich Jahongir\nBu vebsaytni 2025.04.14 sanada ishga tushirdi");
+        }
+        
+        // DASTLABKI SOZLAMALAR
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeData();
+            document.getElementById('logoutBtn').addEventListener('click', logout);
+        });
+    </script>
+</body>
+</html>
